@@ -3,12 +3,6 @@ var currentCity = '';
 var lat;
 var lon;
 
-function callAPI(url, functionToCall) {
-    fetch(url)
-    .then(response => response.json())
-    .then(data => window[functionToCall](data));
-}
-
 function search() {
     getCity();
 }
