@@ -6,7 +6,23 @@
         <link rel="stylesheet" href="assets/css/style.css">
     </head>
     <body class="m-3">
-        <h1>Weather Dashboard</h1>
+        <h1 class="text-center bg-dark text-light">Weather Dashboard</h1>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <h2>Search for a City</h2>
+                    <input id="city-input" type="text">
+                    <button onclick="search()" class="btn btn-primary">Search</button>
+                    <h3>Past Searches</h3>
+                    <div id="past-searches"></div>
+                </div>
+                <div class="col-8">
+                    <h2>Weather</h2>
+                    <div>Weather in <span id="weather"></span></div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="assets/js/script.js"></script>
     </body>
 </html>
