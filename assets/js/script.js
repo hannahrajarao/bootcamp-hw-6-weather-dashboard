@@ -22,12 +22,12 @@ function addToList(cityName) {
 
 function showWeather() {
     // call api to get coordinates from city
-    const cityUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${currentCity}&limit=5&appid=${API_key}`;
-    callAPI(cityUrl, "getLatAndLon");
-    console.log('34 lat lon', lat, lon);
+    const cityUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${currentCity}&limit=5&appid=${API_key}`;
+    await fetch(cityUrl).then(response => response.json()).then(data => getLatAndLon(data));
+
     // call api to get weather from coordinates
-    const locUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`;
-    callAPI(locUrl, "getWeatherData");
+    const locUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`;
+    await fetch(locUrl).then(response => response.json()).then(data => displayWeatherData(data));
 }
 
 function getLatAndLon(data) {
