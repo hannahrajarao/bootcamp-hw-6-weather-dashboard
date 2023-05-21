@@ -66,8 +66,16 @@ function getLatAndLon(data) {
     lon = cityData.lon;
 }
 
-function getWeatherData(data) {
+function displayWeatherData(data) {
     console.log(data);
+    var weatherData = data.list;
+    console.log(weatherData);
+    makeWeatherCard(weatherData[0], '#current-weather', "Right Now");
+    for(var i=4; i<weatherData.length; i+=8) {
+        var wd = weatherData[i];
+        console.log(wd);
+        makeWeatherCard(wd, '#five-days');
+    }
 }
 
 $(function () {
