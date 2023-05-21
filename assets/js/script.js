@@ -78,6 +78,10 @@ function displayWeatherData(data) {
     }
 }
 
+function toFahrenheit(kelvin) {
+    return Math.round(1.8*(kelvin-273)+32);
+}
+
 $(function () {
     updateLocalStorageCities();
     updateCityList();
