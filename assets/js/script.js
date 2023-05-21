@@ -53,13 +53,15 @@ async function showWeather() {
 
 function getLatAndLon(data) {
     if(data.length === 0) {
-        $('#weather').text("no city or location found");
+        $('#city-name').text("no city or location found");
         return;
     }
-    cityData = data[0];
-    //update city
-    $('#weather').text(cityData.name);
-    console.log(cityData.name, cityData.lat, cityData.lon);
+    var cityData = data[0];
+    var cityName = cityData.name;
+    $('#city-name').append($("<h4>").text(cityName).addClass("my-3 ml-2"));
+    addToList(cityName);
+    updateLocalStorageCities();
+    updateCityList();
     lat = cityData.lat;
     lon = cityData.lon;
 }
