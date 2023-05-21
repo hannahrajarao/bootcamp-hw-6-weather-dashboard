@@ -69,6 +69,8 @@ function getWeatherData(data) {
 }
 
 $(function () {
+    updateLocalStorageCities();
+    updateCityList();
     if(location.search !== '') {
         currentCity = location.search.substring("?city=".length);
         showWeather();
