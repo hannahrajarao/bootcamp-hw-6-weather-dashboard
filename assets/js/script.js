@@ -81,7 +81,27 @@ function displayWeatherData(data) {
     }
 }
 
-function makeWeatherCard(wd, category, title) {
+function showCurrentWeather(wd) {
+    var temp = toFahrenheit(wd.main.temp);
+    var wind = wd.wind.speed;
+    var humidity = wd.main.humidity;
+    var icon = wd.weather[0].icon;
+    var iconURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+    var card = $("#current-weather-card");
+    var contentContainer = $("#content-container");
+
+    contentContainer.append($("<h5>").text("Right Now").addClass("card-title"));
+    contentContainer.append($("<div>").text("Temp: "+temp+"°F"));
+    contentContainer.append($("<div>").text("Wind: "+wind+" MPH"));
+    contentContainer.append($("<div>").text("Humidity: "+humidity+"%"));
+    card.append(contentContainer);
+
+    var imgEl = $("#icon").attr("src", iconURL);
+    card.append(imgEl);
+    $("#current-weather").append(card);   
+}
+
+function makeWeatherCard(wd) {
     var date = wd.dt_txt.substring(0,'2023-01-01'.length);
     var temp = toFahrenheit(wd.main.temp);
     var wind = wd.wind.speed;
