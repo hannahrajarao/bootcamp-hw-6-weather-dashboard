@@ -1,5 +1,6 @@
-const API_key = "";
+const API_key = "88752772fb6dbf7dd85257f7a6545dad";
 var currentCity = '';
+var cities = [];
 var lat;
 var lon;
 
@@ -17,7 +18,9 @@ function redirect(city) {
 }
 
 function addToList(cityName) {
-    $('#past-searches').append();
+    if(!cities.includes(cityName))
+        cities.push(cityName);
+    setLocalStorageCities();
 }
 
 function updateCityList() {
@@ -76,6 +79,42 @@ function displayWeatherData(data) {
         console.log(wd);
         makeWeatherCard(wd, '#five-days');
     }
+}
+
+function makeWeatherCard(wd, category, title) {
+    var date = wd.dt_txt.substring(0,'2023-01-01'.length);
+    var temp = toFahrenheit(wd.main.temp);
+    var wind = wd.wind.speed;
+    var humidity = wd.main.humidity;
+    var icon = wd.weather[0].icon;
+    var iconURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+    console.log(date, temp, wind, humidity);
+
+    if(category === "#current-weather")
+        var classes = "d-flex justify-content-center align-items-center flex-wrap-reverse"; //
+    else
+        var classes = "col-5 col-md-4 col-lg-2 m-1";
+
+    var card = $("<div>").addClass(classes).addClass("card");
+    var contentContainer = $("<div>");
+
+    contentContainer.append($("<h5>").text(title));
+    contentContainer.append($("<div>").text("Date: "+date));
+    contentContainer.append($("<div>").text("Temp: "+temp+"°F"));
+    contentContainer.append($("<div>").text("Wind: "+wind+" MPH"));
+    contentContainer.append($("<div>").text("Humidity: "+humidity+"%"));
+    card.append(contentContainer);
+
+    var imgEl = $("<img>").attr("src", iconURL);
+    card.append(imgEl);
+    if(category === "#current-weather") {
+        card.addClass('row');
+        contentContainer.addClass('col-4');
+        imgEl.addClass('col-4');
+        contentContainer.addClass('d-inline-block card-body');
+        imgEl.addClass('d-inline-block card-img-end');
+    }
+    $(category).append(card);
 }
 
 function toFahrenheit(kelvin) {
