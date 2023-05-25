@@ -73,11 +73,11 @@ function displayWeatherData(data) {
     console.log(data);
     var weatherData = data.list;
     console.log(weatherData);
-    makeWeatherCard(weatherData[0], '#current-weather', "Right Now");
+    showCurrentWeather(weatherData[0]);
     for(var i=4; i<weatherData.length; i+=8) {
         var wd = weatherData[i];
         console.log(wd);
-        makeWeatherCard(wd, '#five-days');
+        makeWeatherCard(wd);
     }
 }
 
@@ -108,18 +108,11 @@ function makeWeatherCard(wd) {
     var humidity = wd.main.humidity;
     var icon = wd.weather[0].icon;
     var iconURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
-    console.log(date, temp, wind, humidity);
 
-    if(category === "#current-weather")
-        var classes = "d-flex justify-content-center align-items-center flex-wrap-reverse"; //
-    else
-        var classes = "col-5 col-md-4 col-lg-2 m-1";
-
-    var card = $("<div>").addClass(classes).addClass("card");
+    var card = $("<div>").addClass("col-5 col-md-4 col-lg-2 mr-1 mt-1").addClass("card");
     var contentContainer = $("<div>");
 
-    contentContainer.append($("<h5>").text(title));
-    contentContainer.append($("<div>").text("Date: "+date));
+    contentContainer.append($("<h5>").text(date).addClass("card-title"));
     contentContainer.append($("<div>").text("Temp: "+temp+"°F"));
     contentContainer.append($("<div>").text("Wind: "+wind+" MPH"));
     contentContainer.append($("<div>").text("Humidity: "+humidity+"%"));
@@ -127,14 +120,7 @@ function makeWeatherCard(wd) {
 
     var imgEl = $("<img>").attr("src", iconURL);
     card.append(imgEl);
-    if(category === "#current-weather") {
-        card.addClass('row');
-        contentContainer.addClass('col-4');
-        imgEl.addClass('col-4');
-        contentContainer.addClass('d-inline-block card-body');
-        imgEl.addClass('d-inline-block card-img-end');
-    }
-    $(category).append(card);
+    $("#five-days").append(card);
 }
 
 function toFahrenheit(kelvin) {
